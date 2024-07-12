@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CartScreen = ({ navigation }) => {
@@ -45,38 +45,33 @@ const CartScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.header}>
-          <Image source={require('../assets/Logo.png')} style={styles.logo} />
-          <Text style={styles.checkoutText}>CHECKOUT</Text>
-          <View style={styles.headerIcons}>
-            <Image source={require('../assets/Search.png')} style={styles.headerIcon} />
-          </View>
+      <View style={styles.header}>
+        <Image source={require('../assets/Logo.png')} style={styles.logo} />
+        <Text style={styles.checkoutText}>CHECKOUT</Text>
+        <View style={styles.headerIcons}>
+          <Image source={require('../assets/Search.png')} style={styles.headerIcon} />
         </View>
-        <FlatList
-          data={cartItems}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.flatListContent}
-        />
-
-        <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.cartButtonText}>CHECKOUT</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      </View>
+      <FlatList
+        data={cartItems}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.flatListContent}
+      />
+      <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.cartButtonText}>CHECKOUT</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     marginTop: 30,
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    paddingBottom: 20, // Space for Checkout text
   },
   header: {
     flexDirection: 'row',
@@ -112,8 +107,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   itemImage: {
-    width: 80,
-    height: 80,
+    width: screenWidth / 3, // Adjust width to ensure visibility
+    height: screenWidth / 3, // Adjust height to ensure visibility
     marginRight: 10,
   },
   itemDetails: {
@@ -128,6 +123,7 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 14,
     marginBottom: 5,
+    color: 'orange',
   },
   itemDescription: {
     fontSize: 12,

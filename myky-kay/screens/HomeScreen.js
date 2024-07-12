@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import CustomHeader from '../components/CustomHeader';
@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
       <FlatList
         data={products}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
         numColumns={2}
         contentContainerStyle={styles.productContainer}
         columnWrapperStyle={styles.columnWrapper}
